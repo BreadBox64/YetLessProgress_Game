@@ -1,0 +1,15 @@
+Setting Types |:
+<| Fullscreen? (Default: False, [True, False])
+Resizable Window? (Default: True [True, False])
+Window Width? (Default: 1366 [Int >= 100])
+Window Height? (Default: 738 [Int >= 100])
+Antialiasing? (Default: 3 [0, 1, 2, 3, 4, 8])
+Framerate? (Default: 30 [120 >= Int >= 1])
+Pause On Unfocus? (Default: True, [True, False])
+RNG Dificulty? (Default: 1 [0, 1, 2, 3])
+Start Dificulty? (Default: 1 [0, 1, 2, 3])
+Last Place Advatage? (Default: True, [True, False])
+Navigation Dark Zones? (Default: True, [True, False])
+Debug Files? (Default:True, [True, False])
+New Debug File Every Session? (Default:False[True, False])
+::

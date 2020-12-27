@@ -9,3 +9,7 @@ void shutdown (boolean save_options, boolean save_game){
   }
   exit();
 }
+
+void restart(){
+  //System.restart();
+}
