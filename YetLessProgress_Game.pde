@@ -5,7 +5,8 @@ String[] options_string;
 PImage icon;
 JSONArray gameState;
 String currentGameFilename = "new_game";
-String screen = "Main_Menu";
+String previousScreen = "MainMenu";
+String screen = "MainMenu";
 
 boolean options_display_fullscreen;
 boolean options_display_resizable;
@@ -27,8 +28,8 @@ void setup() {
   icon = loadImage("icon.png");
   options = loadTable("options.csv");
   options_string = options.getStringColumn(1);
-  output = createWriter("debug.txt");
   currentOutput = loadStrings("debug.txt");
+  output = createWriter("debug.txt");
   
   if(!boolean(options_string[12])){
     for(int i = 0; i < currentOutput.length; i++){
@@ -36,8 +37,8 @@ void setup() {
     }
   }
   
-  output.print("Starting Init...\n Loading Settings...");
-  print("Starting Init...\n  Loading Settings...");
+  output.print("\n--------\nStarting Init...\n  Loading Settings...");
+  print("--------\nStarting Init...\n  Loading Settings...");
   
   options_display_fullscreen = boolean(options_string[0]);
   options_display_resizable = boolean(options_string[1]);
@@ -52,13 +53,21 @@ void setup() {
   options_difficulty_darkZones = boolean(options_string[10]);
   options_debug_produceFiles = boolean(options_string[11]);
   options_debug_multipleFiles = boolean(options_string[12]);
+
+  b_print(" Done\n  Applying Settings...");
   
-  if(options_debug_produceFiles){
-    output.print(" Done\n  Applying Settings...");
+  surface.setResizable(options_display_resizable);
+  surface.setSize(options_display_width, options_display_height);
+  smooth(options_display_antialiasing);
+  if(options_display_antialiasing <= 0){
+    noSmooth();
   }
-  print(" Done\n  Applying Settings...");
+  frameRate(options_display_framerate);
   
- 
+  
+  b_print(" Done");
+  b_println("");
+  b_println("Finished Init");
 }
 
 
@@ -68,10 +77,14 @@ void keyPressed() {
     key = 0;
     shutdown(false, false);
   }
+  if(key == 'm' || key == 'M'){
+    b_print("Switching to Map Screen...");
+    ui_switchScreen("Map");
+  }
 }
 
 void mousePressed() {
-  
+  b_println("Mouse Pressed at: " + mouseX + ", " + mouseY);
 }
 
 void mouseDragged() {
@@ -82,4 +95,7 @@ void mouseDragged() {
 
 void draw() {
   background(200);
+  if((!focused && !(screen == "MainMenu" || screen == "Settings") && options_display_unfocusPause)){
+    ui_switchScreen("Pause");
+  }
 }

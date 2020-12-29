@@ -10,4 +10,4 @@ difficulty_start,1
 difficulty_catchup,true
 difficulty_darkZones,true
 debug_produceFiles,true
-debug_multipleFiles,false
+debug_multipleFiles,true
