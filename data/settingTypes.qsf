@@ -2,7 +2,7 @@ Setting Types |:
 <{ Display Settings }>
 <| Fullscreen? (Default: False, [True, False])
 Resizable Window? (Default: True [True, False])
-Window Width? (Default: 1366 [It >= 100])
+Window Width? (Default: 1366 [INt >= 100])
 Window Height? (Default: 738 [Int >= 100])
 Antialiasing? (Default: 3 [0, 1, 2, 3, 4, 8])
 Framerate? (Default: 30 [120 >= Int >= 1])

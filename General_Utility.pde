@@ -21,3 +21,23 @@ float returnLogisticValue (float n){
   float output = l / (1 + exp(-k * (n - m)));
   return output;
 }
+
+float dist_fromCircle(int pointX, int pointY, int circleX, int circleY, int circleR) {
+  float cx = pointX - circleX;
+  float cy = pointY - circleY;
+  return sqrt(sq(cx) + sq(cy)) - circleR;
+}
+
+float dist_fromRect(int pointX, int pointY, int rectX, int rectY, int rectW, int rectH) {
+    float cx = max(min(pointX, rectX+rectW ), rectX);
+    float cy = max(min(pointY, rectY+rectH), rectY);
+    return sqrt( (pointX-cx)*(pointX-cx) + (pointY-cy)*(pointY-cy) );
+}
+
+boolean intersect_circle(int pointX, int pointY, int circleX, int circleY, int circleR) {
+  return dist_fromCircle(pointX, pointY, circleX, circleY, circleR) <= 0;
+}
+
+boolean intersect_rect(int pointX, int pointY, int rectX, int rectY, int rectW, int rectH) {
+  return dist_fromRect(pointX, pointY, rectX, rectY, rectW, rectH) <= 0;
+}
