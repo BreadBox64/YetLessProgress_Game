@@ -1,0 +1,11 @@
+
+--------
+Starting Init...
+  Checking Version... Done
+  Applying Settings... Done
+  Loading Fonts... Done
+Finished Init
+Mouse Pressed at: 27, 42
+Button 'exitButton' pressed at 27, 42
+
+Shutting Down...

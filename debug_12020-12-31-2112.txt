@@ -1,0 +1,14 @@
+
+--------
+Starting Init...
+  Checking Version... Done
+  Applying Settings... Done
+  Loading Fonts... Done
+Finished Init
+Mouse Pressed at: 189, 99
+Mouse Pressed at: 444, 253
+Mouse Pressed at: 190, 355
+Mouse Pressed at: 41, 18
+Button 'exitButton' pressed at 41, 18
+
+Shutting Down...

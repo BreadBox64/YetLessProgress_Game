@@ -12,10 +12,10 @@ PImage icon;
 JSONArray gameState;
 String currentGameFilename = "new_game";
 String previousScreen = "MainMenu";
+String screen = "MainMenu";
 String[] onlineVersion;
 String[] localVersion;
-boolean upToDate;
-String screen = "MainMenu";
+boolean upToDate = true;
 
 boolean options_display_fullscreen;
 boolean options_display_resizable;
@@ -30,6 +30,8 @@ boolean options_difficulty_catchup;
 boolean options_difficulty_darkZones;
 boolean options_debug_produceFiles;
 boolean options_debug_multipleFiles;
+
+ui_mainMenu mainMenu = new ui_mainMenu();
 
 
 
@@ -90,14 +92,14 @@ void setup() {
   }
   frameRate(options_display_framerate);
   
-  b_print(" Done\n Loading Fonts...");
+  b_print(" Done\n  Loading Fonts...");
   
   nunitoExtraLight = createFont("Nunito-ExtraLight.ttf", 48);
   nunitoLight = createFont("Nunito-Light.ttf", 48);
   nunitoSansExtraLight = createFont("NunitoSans-ExtraLight.ttf", 48);
   nunitoSansLight = createFont("NunitoSans-ExtraLight.ttf", 48);
   
-  b_print(" Done");
+  b_print(" Done\n");
   b_println("Finished Init");
 }
 
@@ -106,7 +108,6 @@ void setup() {
 void keyPressed() {
   if(keyCode == 27){
     key = 0;
-    shutdown(false, false);
   }
   if(key == 'm' || key == 'M'){
     b_print("Switching to Map Screen...");
@@ -146,7 +147,8 @@ void mouseDragged() {
 
 void draw() {
   background(200);
-  if((!focused && !(screen == "MainMenu" || screen == "Settings") && options_display_unfocusPause)){
-    ui_switchScreen("Pause");
-  }
+  //if((!focused && !(screen == "MainMenu" || screen == "Settings") && options_display_unfocusPause)){
+  //  ui_switchScreen("Pause");
+  //}
+  mainMenu.display();
 }

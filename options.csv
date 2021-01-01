@@ -1,0 +1,13 @@
+display_fullscreen,false
+display_resizable,true
+display_width,738
+display_height,738
+display_antialiasing,3
+display_framerate,30
+display_unfocus_pause,true
+difficulty_rng,1
+difficulty_start,1
+difficulty_catchup,true
+difficulty_darkZones,true
+debug_produceFiles,true
+debug_multipleFiles,true

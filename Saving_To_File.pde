@@ -7,7 +7,10 @@ void save_gameState(String filename) {
 }
 
 void save_optionState() {
-  
-  
+  for(int i = 0; i < options_string.length; i++){
+    options.setString(i, 1, options_string[i]);
+  }
+  options.setString(2, 1, str(width));
+  options.setString(2, 1, str(height));
   saveTable(options, "options.csv");
 }
