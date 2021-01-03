@@ -86,6 +86,7 @@ void setup() {
   surface.setLocation(0,0);
   surface.setResizable(options_display_resizable);
   surface.setSize(options_display_width, options_display_height);
+  surface.setIcon(icon);
   smooth(options_display_antialiasing);
   if(options_display_antialiasing <= 0){
     noSmooth();
