@@ -4,6 +4,64 @@ void ui_switchScreen(String newScreen) {
   println(" Done");
 }
 
+
+
+PFont returnFontFromString(String fontString) {
+  PFont output;
+  switch(fontString) {
+    case "" :
+      output = nunitoExtraLight;
+    break;
+    case "nunitoExtraLight" :
+      output = nunitoExtraLight;
+    break;
+    case "nunitoLight" :
+      output = nunitoLight;
+    break;
+    case "nunitoSansExtraLight" :
+      output = nunitoSansExtraLight;
+    break;
+    case "nunitoSansLight" :
+      output = nunitoSansLight;
+    break;
+    default :
+      output = createFont(fontString, 48);
+    break;
+  }
+  return output;
+}
+
+
+
+void drawCursor(float x, float y, String type) {
+  switch(type){
+    case "Typing" :
+      
+    break;
+    case "Button" :
+      
+    break;
+    default :
+      fill(0, 0, 0, 100);
+      noStroke();
+      ellipse(x, y, 10, 10);
+    break;
+  }
+}
+
+void drawLoadingIcon(color bgColor, int x, int y) {
+  for(int i = 0; i < 360; i += 30){
+    color spotColor = color(111, 172, 255, map(i, 0, 360, 255, 0));
+    fill(spotColor);
+    noStroke();
+    arc(x, y, 80, 80, radians(i), radians(i + 20));
+    fill(bgColor);
+    ellipse(x, y, 60, 60);
+  }
+}
+
+
+
 class ui_circleButton {
   ui_circleButton() {
     
@@ -15,11 +73,11 @@ class ui_rectButton {
   color fillColor, highlight_fillColor, click_fillColor, strokeColor, highlight_strokeColor, click_strokeColor, textColor;
   boolean mouseHover, mouseClick;
   String buttonLabel = "";
-  PFont buttonFont = nunitoExtraLight;
+  String buttonFont = "";
   float buttonFontSize = 10;
   String buttonName = "Unnamed";
   
-  ui_rectButton(String name, int x, int y, int w, int h, color[] colors, int weight, String label, PFont font, float fontSize) {
+  ui_rectButton(String name, int x, int y, int w, int h, color[] colors, int weight, String label, String font, float fontSize) {
     buttonName = name;
     dimension_x = x;
     dimension_y = y;
@@ -36,8 +94,8 @@ class ui_rectButton {
     textColor = colors[6];
     strokeWeight = weight;
     buttonLabel = label;
-    if(font != null) buttonFont = font;
-    buttonFontSize = fontSize;
+    buttonFont = font;
+    buttonFontSize = fontSize;    
   }
   
   void display() {
@@ -55,7 +113,7 @@ class ui_rectButton {
     rect(dimension_x, dimension_y, dimension_w, dimension_h);
     fill(textColor);
     textAlign(CENTER, CENTER);
-    textFont(nunitoExtraLight, buttonFontSize);
+    textFont(returnFontFromString(buttonFont), buttonFontSize);
     text(buttonLabel, dimension_cx, dimension_cy);
   }
   
@@ -65,7 +123,7 @@ class ui_rectButton {
       value[0] = true;
       if(mousePressed){
         value[1] = true;
-        b_println("Button '" + buttonName + "' pressed at " + mouseX + ", " + mouseY);
+        b_println("Button '" + buttonName + "' pressed at [" + mouseX + ", " + mouseY + "]-Absolute [" + (mouseX - dimension_x) + ", " + (mouseY - dimension_y) + "]-Local");
       }
     }
     mouseHover = value[0];
@@ -116,7 +174,7 @@ class ui_mainMenu {
   color[] exitButtonColors = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
   ui_rectButton[] buttons = new ui_rectButton[1];
   ui_mainMenu() {
-    buttons[0] = new ui_rectButton("exitButton" , 10, 10, 40, 40, exitButtonColors, 4, "×", nunitoExtraLight, 50);
+    buttons[0] = new ui_rectButton("exitButton" , 10, 10, 40, 40, exitButtonColors, 4, "×", "nunitoExtraLight", 50);
     
   }
   
@@ -134,6 +192,7 @@ class ui_mainMenu {
       }
       i.display();
     }
+    
   }
   
   void shiftScreen(String newScreen) {

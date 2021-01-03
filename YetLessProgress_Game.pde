@@ -13,9 +13,10 @@ JSONArray gameState;
 String currentGameFilename = "new_game";
 String previousScreen = "MainMenu";
 String screen = "MainMenu";
-String[] onlineVersion;
+String[] onlineVersion = {"-Network Error-"};
 String[] localVersion;
 boolean upToDate = true;
+String cursorMode = "Normal";
 
 boolean options_display_fullscreen;
 boolean options_display_resizable;
@@ -36,6 +37,8 @@ ui_mainMenu mainMenu = new ui_mainMenu();
 
 
 void setup() {
+  background(255);
+  drawLoadingIcon(color(255), width/2, height/2);
   icon = loadImage("icon.png");
   options = loadTable("options.csv");
   options_string = options.getStringColumn(1);
@@ -55,14 +58,19 @@ void setup() {
   output.print("\n--------\nStarting Init...\n  Checking Version...");
   print("--------\nStarting Init...\n  Checking Version...");
   
-  onlineVersion = loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/version.txt");
   localVersion = loadStrings("version.txt");
-  upToDate = onlineVersion[0].equals(localVersion[0]);
-  
-  if(upToDate){
-    b_print(" v" + localVersion[0] + " Is Up To Date\n  Loading Settings...");
+  if(checkConnectivityStatus(false)){
+    onlineVersion = loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/version.txt"); 
+    
+    upToDate = onlineVersion[0].equals(localVersion[0]);
+    
+    if(upToDate){
+      b_print(" v" + localVersion[0] + " Is Up To Date\n  Loading Settings...");
+    } else {
+      b_print(" v" + localVersion[0] + " Is Not Up To Date\n  Loading Settings...");
+    }
   } else {
-    b_print(" v" + localVersion[0] + " Is Not Up To Date\n  Loading Settings...");
+    b_print("No Network Connection, Unable To Check Version.\n  Loading Settings...");
   }
   
   //b_println(localVersion[0] + " | " + onlineVersion[0]);
@@ -83,13 +91,14 @@ void setup() {
 
   b_print(" Done\n  Applying Settings...");
   
+  background(255);
   surface.setLocation(0,0);
   surface.setResizable(options_display_resizable);
   surface.setSize(options_display_width, options_display_height);
   smooth(options_display_antialiasing);
-  if(options_display_antialiasing <= 0){
-    noSmooth();
-  }
+  //if(options_display_antialiasing == 0){
+  //  noSmooth();
+  //}
   frameRate(options_display_framerate);
   
   b_print(" Done\n  Loading Fonts...");
@@ -99,8 +108,12 @@ void setup() {
   nunitoSansExtraLight = createFont("NunitoSans-ExtraLight.ttf", 48);
   nunitoSansLight = createFont("NunitoSans-ExtraLight.ttf", 48);
   
-  b_print(" Done\n");
-  b_println("Finished Init");
+  b_print(" Done\n  Wrapping Up...");
+  
+  noCursor();
+  
+  b_println(" Done");
+  b_println("Finished Init!");
 }
 
 
@@ -136,7 +149,7 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  b_println("Mouse Pressed at: " + mouseX + ", " + mouseY);
+  //b_println("Mouse Pressed at: " + mouseX + ", " + mouseY);
 }
 
 void mouseDragged() {
@@ -151,4 +164,5 @@ void draw() {
   //  ui_switchScreen("Pause");
   //}
   mainMenu.display();
+  drawCursor(mouseX, mouseY, cursorMode);
 }
