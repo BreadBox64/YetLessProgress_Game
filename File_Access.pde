@@ -10,6 +10,29 @@ boolean checkConnectivityStatus(boolean enablePrint){
   if(enablePrint) b_println("Test Succeeded");
   return true;
 }
+
+String[] get_savedGameStates() {
+  String[] directoryContentsArray = listFileNames(sketchPath() + "/data/saveGames");
+  String[] directoryContents = new String[0];
+  for(int i = 0; i < directoryContentsArray.length; i++){
+    if(directoryContentsArray[i].indexOf(".json") != -1) {
+      directoryContents = append(directoryContents, directoryContentsArray[i].substring(0, (directoryContentsArray[i].length() - 5)));
+    }
+  }
+  return directoryContents;
+}
+
+String[] listFileNames(String dir) {
+  File file = new File(dir);
+  if (file.isDirectory()) {
+    String names[] = file.list();
+    return names;
+  } else {
+    // If it's not a directory
+    return null;
+  }
+}
+
 void load_gameState(String filename) {
   b_print("Loading Gamestate...");
   gameState = loadJSONArray("saveGames/" + filename + ".json");

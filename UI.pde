@@ -43,6 +43,7 @@ void drawCursor(float x, float y, String type) {
     break;
     default :
       fill(0, 0, 0, 100);
+      if(mousePressed) fill(0, 0, 0, 75);
       noStroke();
       ellipse(x, y, 10, 10);
     break;
@@ -170,12 +171,27 @@ class fadeUpDown {
   }
 }
 
-class ui_mainMenu {
-  color[] exitButtonColors = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
-  ui_rectButton[] buttons = new ui_rectButton[1];
-  ui_mainMenu() {
-    buttons[0] = new ui_rectButton("exitButton" , 10, 10, 40, 40, exitButtonColors, 4, "×", "nunitoExtraLight", 50);
+class ui_gameStateLoadMenu {
+  String[] gameStates = get_savedGameStates();
+  ui_gameStateLoadMenu() {
     
+  }
+  void display() {
+    stroke(100);
+    strokeWeight(8);
+    fill(255);
+    rect(width * 0.25, height * 0.25, width * 0.5, height * 0.5);
+    
+  }
+  
+}
+
+class ui_mainMenu {
+  color[] defaultButtonColors = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
+  ui_rectButton[] buttons = new ui_rectButton[2];
+  ui_mainMenu() {
+    buttons[0] = new ui_rectButton("exitButton", 10, 10, 40, 40, defaultButtonColors, 4, "×", "nunitoExtraLight", 50);
+    buttons[1] = new ui_rectButton("loadGameButton", int(width * 0.4), int(height * 0.6), 160, 80, defaultButtonColors, 4, "Load Game", "nunitoExtraLight", 50);
   }
   
   void display() {
@@ -189,9 +205,17 @@ class ui_mainMenu {
             shutdown(true, false); // Should be 'shutdown(true, true)' but saveGames aren't working yet.
           }
         break;
+        case "loadGameButton" :
+          if(state[1]){
+            
+          }
+        break;
       }
       i.display();
     }
+    fill(0);
+    textFont(nunitoLight, 64);
+    text("Yet Less Progress", width * 0.5, height * 0.4);
     
   }
   
