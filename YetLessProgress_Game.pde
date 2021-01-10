@@ -19,6 +19,8 @@ boolean upToDate = true;
 String cursorMode = "Normal";
 int[] display = {width, height};
 
+PImage mainMenuBackground;
+
 boolean options_display_fullscreen;
 boolean options_display_resizable;
 int options_display_width;
@@ -109,12 +111,14 @@ void setup() {
   surface.setIcon(icon);
   frameRate(options_display_framerate);
   
-  b_print(" Done\n  Loading Fonts...");
+  b_print(" Done\n  Loading Data...");
   
   nunitoExtraLight = createFont("Nunito-ExtraLight.ttf", 48);
   nunitoLight = createFont("Nunito-Light.ttf", 48);
   nunitoSansExtraLight = createFont("NunitoSans-ExtraLight.ttf", 48);
   nunitoSansLight = createFont("NunitoSans-ExtraLight.ttf", 48);
+  
+  mainMenuBackground = loadImage("mainMenuBackground.jpg");
   
   b_print(" Done\n  Wrapping Up...");
   
@@ -174,6 +178,7 @@ void draw() {
         display[0] = width;
         display[1] = height;
         mainMenu.updateContent();
+        mainMenuBackground.resize(width, height);
       }
     }
   }
@@ -183,4 +188,5 @@ void draw() {
   //}
   mainMenu.display();
   drawCursor(mouseX, mouseY, cursorMode);
+  println(frameRate);
 }

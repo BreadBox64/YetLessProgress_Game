@@ -43,7 +43,7 @@ void drawCursor(float x, float y, String type) {
     break;
     default :
       fill(0, 0, 0, 100);
-      if(mousePressed) fill(0, 0, 0, 75);
+      if(mousePressed) fill(0, 0, 0, 50);
       noStroke();
       ellipse(x, y, 10, 10);
     break;
@@ -226,6 +226,9 @@ class ui_mainMenu {
   
   void display() {
     background(255);
+    image(mainMenuBackground, 0, 0);
+    fill(255, 200);
+    rect(0, 0, width, height);
     for(ui_rectButton i : buttons){
       boolean[] state = i.checkMouseState();
       String name = i.returnName();
@@ -254,7 +257,7 @@ class ui_mainMenu {
     text("Yet Less Progress", width * 0.5, height * 0.4);
     textSize(20);
     textAlign(LEFT, TOP);
-    text(" Version: " + localVersion[0] + "\n Latest Version: " + onlineVersion[0], 0, 10);
+    text(" Version: " + localVersion[0] + "\n Latest Version: " + onlineVersion[0], 5, 5);
     
   }
   
