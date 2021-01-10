@@ -106,6 +106,7 @@ void setup() {
   //if(options_display_antialiasing == 0){
   //  noSmooth();
   //}
+  surface.setIcon(icon);
   frameRate(options_display_framerate);
   
   b_print(" Done\n  Loading Fonts...");
