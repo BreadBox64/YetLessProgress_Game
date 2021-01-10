@@ -70,15 +70,15 @@ class ui_circleButton {
 }
 
 class ui_rectButton {
-  int dimension_x, dimension_y, dimension_w, dimension_h, dimension_cx, dimension_cy, strokeWeight;
+  float dimension_x, dimension_y, dimension_w, dimension_h, dimension_cx, dimension_cy, strokeWeight;
   color fillColor, highlight_fillColor, click_fillColor, strokeColor, highlight_strokeColor, click_strokeColor, textColor;
   boolean mouseHover, mouseClick;
   String buttonLabel = "";
   String buttonFont = "";
-  float buttonFontSize = 10;
+  float buttonFontSize, buttonFontShift;
   String buttonName = "Unnamed";
   
-  ui_rectButton(String name, int x, int y, int w, int h, color[] colors, int weight, String label, String font, float fontSize) {
+  ui_rectButton(String name, float x, float y, float w, float h, color[] colors, float weight, String label, String font, float fontSize, float fontShift) {
     buttonName = name;
     dimension_x = x;
     dimension_y = y;
@@ -96,7 +96,8 @@ class ui_rectButton {
     strokeWeight = weight;
     buttonLabel = label;
     buttonFont = font;
-    buttonFontSize = fontSize;    
+    buttonFontSize = fontSize;  
+    buttonFontShift = fontShift;
   }
   
   void display() {
@@ -114,8 +115,9 @@ class ui_rectButton {
     rect(dimension_x, dimension_y, dimension_w, dimension_h);
     fill(textColor);
     textAlign(CENTER, CENTER);
-    textFont(returnFontFromString(buttonFont), buttonFontSize);
-    text(buttonLabel, dimension_cx, dimension_cy);
+    textFont(returnFontFromString(buttonFont), 100);
+    textSize(buttonFontSize);
+    text(buttonLabel, dimension_cx, dimension_cy + buttonFontShift);
   }
   
   boolean[] checkMouseState() {
@@ -171,27 +173,55 @@ class fadeUpDown {
   }
 }
 
-class ui_gameStateLoadMenu {
-  String[] gameStates = get_savedGameStates();
-  ui_gameStateLoadMenu() {
+class ui_scrollList {
+  int x, y, w, h;
+  JSONArray elements;
+  /*
+  Each member of elements looks like this:
+  
+  {
+    "name": "insert_name_here",
     
   }
+  
+  */
+  ui_scrollList(int xCoord, int yCoord, int wCoord, int hCoord, JSONArray imported_elements) {
+    x = xCoord;
+    y = yCoord;
+    w = wCoord;
+    h = hCoord;
+  }
   void display() {
-    stroke(100);
-    strokeWeight(8);
-    fill(255);
-    rect(width * 0.25, height * 0.25, width * 0.5, height * 0.5);
+    
+  }
+  void onMouseDragged() {
     
   }
   
 }
 
+//class ui_popup {
+//  ui_popup() {
+    
+//  }
+//  void display() {int 
+//    stroke(100);
+//    strokeWeight(8);
+//    fill(255);
+//    rect(width * 0.25, height * 0.25, width * 0.5, height * 0.5);
+    
+//  }
+  
+//}
+
 class ui_mainMenu {
-  color[] defaultButtonColors = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
-  ui_rectButton[] buttons = new ui_rectButton[2];
+  color[] defaultButtonColorsWhiteText = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
+  color[] defaultButtonColorsBlackText = {color(150), color(175), color(160), color(175), color(200), color(180), color(0)};
+  ui_rectButton[] buttons = new ui_rectButton[3];
   ui_mainMenu() {
-    buttons[0] = new ui_rectButton("exitButton", 10, 10, 40, 40, defaultButtonColors, 4, "×", "nunitoExtraLight", 50);
-    buttons[1] = new ui_rectButton("loadGameButton", int(width * 0.4), int(height * 0.6), 160, 80, defaultButtonColors, 4, "Load Game", "nunitoExtraLight", 50);
+    buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
+    buttons[1] = new ui_rectButton("loadGameButton", width * 0.35, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
+    buttons[2] = new ui_rectButton("newGameButton", width * 0.55, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
   }
   
   void display() {
@@ -210,16 +240,27 @@ class ui_mainMenu {
             
           }
         break;
+        case "newGameButton" :
+          if(state[1]){
+            
+          }
+        break;
       }
       i.display();
     }
     fill(0);
     textFont(nunitoLight, 64);
+    textAlign(CENTER, CENTER);
     text("Yet Less Progress", width * 0.5, height * 0.4);
+    textSize(20);
+    textAlign(LEFT, TOP);
+    text(" Version: " + localVersion[0] + "\n Latest Version: " + onlineVersion[0], 0, 10);
     
   }
   
-  void shiftScreen(String newScreen) {
-    
+  void updateContent() {
+    buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
+    buttons[1] = new ui_rectButton("loadGameButton", int(width * 0.35), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
+    buttons[2] = new ui_rectButton("newGameButton", int(width * 0.55), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
   }
 }

@@ -22,22 +22,60 @@ float returnLogisticValue (float n){
   return output;
 }
 
-float dist_fromCircle(int pointX, int pointY, int circleX, int circleY, int circleR) {
+float dist_fromCircle(float pointX, float pointY, float circleX, float circleY, float circleR) {
   float cx = pointX - circleX;
   float cy = pointY - circleY;
   return sqrt(sq(cx) + sq(cy)) - circleR;
 }
 
-float dist_fromRect(int pointX, int pointY, int rectX, int rectY, int rectW, int rectH) {
+float dist_fromRect(float pointX, float pointY, float rectX, float rectY, float rectW, float rectH) {
     float cx = max(min(pointX, rectX+rectW ), rectX);
     float cy = max(min(pointY, rectY+rectH), rectY);
     return sqrt( (pointX-cx)*(pointX-cx) + (pointY-cy)*(pointY-cy) );
 }
 
-boolean intersect_circle(int pointX, int pointY, int circleX, int circleY, int circleR) {
+boolean intersect_circle(float pointX, float pointY, float circleX, float circleY, float circleR) {
   return dist_fromCircle(pointX, pointY, circleX, circleY, circleR) <= 0;
 }
 
-boolean intersect_rect(int pointX, int pointY, int rectX, int rectY, int rectW, int rectH) {
+boolean intersect_rect(float pointX, float pointY, float rectX, float rectY, float rectW, float rectH) {
   return dist_fromRect(pointX, pointY, rectX, rectY, rectW, rectH) <= 0;
+}
+
+int modifyColor(char mode, int value, int change) {
+  float[] argbValues = {alpha(value), red(value), green(value), blue(value)};
+  color returnColor;
+  switch(mode) {
+    case 'A' :
+      returnColor = color(argbValues[1], argbValues[2], argbValues[3], change);
+    break;
+    case 'R' :
+      returnColor = color(change, argbValues[2], argbValues[3], argbValues[0]);
+    break;
+    case 'G' :
+      returnColor = color(argbValues[1], change, argbValues[3], argbValues[0]);
+    break;
+    case 'B' :
+      returnColor = color(argbValues[1], argbValues[2], change, argbValues[0]);
+    break;
+    default :
+      println("Invalid mode, is this intentional?");
+      returnColor = color(argbValues[1], argbValues[2], argbValues[3], argbValues[0]);
+    break;
+  }
+  
+  return returnColor;
+}
+
+float relX(float input) {
+  return map(input, 0, 1366, 0, width);
+}
+
+float relY(float input) {
+  return map(input, 0, 745, 0, height);
+}
+
+float[] relC(float[] input) {
+  float[] output = {map(input[0], 0, 745, 0, height), map(input[1], 0, 1366, 0, width)};
+  return output;
 }

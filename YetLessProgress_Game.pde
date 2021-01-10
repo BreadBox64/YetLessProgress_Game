@@ -17,6 +17,7 @@ String[] onlineVersion = {"-Network Error-"};
 String[] localVersion;
 boolean upToDate = true;
 String cursorMode = "Normal";
+int[] display = {width, height};
 
 boolean options_display_fullscreen;
 boolean options_display_resizable;
@@ -37,6 +38,8 @@ ui_mainMenu mainMenu = new ui_mainMenu();
 
 
 void setup() {
+  textLeading(13);
+  frameRate(30);
   background(255);
   drawLoadingIcon(color(255), width/2, height/2);
   icon = loadImage("icon.png");
@@ -60,8 +63,11 @@ void setup() {
   
   localVersion = loadStrings("version.txt");
   if(checkConnectivityStatus(false)){
-    onlineVersion = loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/version.txt"); 
-    
+    try {
+      onlineVersion = loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/version.txt"); 
+    } catch(NullPointerException e) {
+      onlineVersion[0] = "- Network Error -";
+    }
     upToDate = onlineVersion[0].equals(localVersion[0]);
     
     if(upToDate){
@@ -70,6 +76,7 @@ void setup() {
       b_print(" v" + localVersion[0] + " Is Not Up To Date\n  Loading Settings...");
     }
   } else {
+    delay(100);
     b_print("No Network Connection, Unable To Check Version.\n  Loading Settings...");
   }
   
@@ -95,7 +102,7 @@ void setup() {
   surface.setLocation(0,0);
   surface.setResizable(options_display_resizable);
   surface.setSize(options_display_width, options_display_height);
-  smooth(options_display_antialiasing);
+  //smooth(options_display_antialiasing);
   //if(options_display_antialiasing == 0){
   //  noSmooth();
   //}
@@ -159,6 +166,16 @@ void mouseDragged() {
 
 
 void draw() {
+  if(width != display[0] || height != display[1]) {
+    switch(screen) {
+      case "MainMenu" : {
+        b_println("Screen Resized to: [" + width + ", " + height + "]");
+        display[0] = width;
+        display[1] = height;
+        mainMenu.updateContent();
+      }
+    }
+  }
   background(200);
   //if((!focused && !(screen == "MainMenu" || screen == "Settings") && options_display_unfocusPause)){
   //  ui_switchScreen("Pause");

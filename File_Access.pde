@@ -35,14 +35,14 @@ String[] listFileNames(String dir) {
 
 void load_gameState(String filename) {
   b_print("Loading Gamestate...");
-  gameState = loadJSONArray("saveGames/" + filename + ".json");
+  gameState = loadJSONArray("data/saveGames/" + filename + ".json");
   b_println(" Done");
 }
 
 void save_gameState(String filename) {
   b_print("Saving Gamestate...");
   
-  saveJSONArray(gameState, "saveGames/" + filename + ".json");
+  saveJSONArray(gameState, "data/saveGames/" + filename + ".json");
   b_println(" Done");
 }
 
