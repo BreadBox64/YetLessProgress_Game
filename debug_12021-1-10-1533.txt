@@ -1,0 +1,17 @@
+
+--------
+Starting Init...
+  Checking Version... Done
+  Applying Settings... Done
+  Loading Fonts... Done
+  Wrapping Up... Done
+Finished Init!
+Screen Resized to: [1366, 738]
+Button 'loadGameButton' pressed at [664, 472]-Absolute [118, 30]-Local
+Button 'loadGameButton' pressed at [664, 472]-Absolute [118, 30]-Local
+Button 'loadGameButton' pressed at [664, 472]-Absolute [118, 30]-Local
+Button 'loadGameButton' pressed at [664, 472]-Absolute [118, 30]-Local
+Button 'loadGameButton' pressed at [664, 472]-Absolute [118, 30]-Local
+Button 'exitButton' pressed at [1346, 26]-Absolute [30, 16]-Local
+Saving Options... Done
+Shutting Down...

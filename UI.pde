@@ -4,6 +4,65 @@ void ui_switchScreen(String newScreen) {
   println(" Done");
 }
 
+
+
+PFont returnFontFromString(String fontString) {
+  PFont output;
+  switch(fontString) {
+    case "" :
+      output = nunitoExtraLight;
+    break;
+    case "nunitoExtraLight" :
+      output = nunitoExtraLight;
+    break;
+    case "nunitoLight" :
+      output = nunitoLight;
+    break;
+    case "nunitoSansExtraLight" :
+      output = nunitoSansExtraLight;
+    break;
+    case "nunitoSansLight" :
+      output = nunitoSansLight;
+    break;
+    default :
+      output = createFont(fontString, 48);
+    break;
+  }
+  return output;
+}
+
+
+
+void drawCursor(float x, float y, String type) {
+  switch(type){
+    case "Typing" :
+      
+    break;
+    case "Button" :
+      
+    break;
+    default :
+      fill(0, 0, 0, 100);
+      if(mousePressed) fill(0, 0, 0, 75);
+      noStroke();
+      ellipse(x, y, 10, 10);
+    break;
+  }
+}
+
+void drawLoadingIcon(color bgColor, int x, int y) {
+  for(int i = 0; i < 360; i += 30){
+    color spotColor = color(111, 172, 255, map(i, 0, 360, 255, 0));
+    fill(spotColor);
+    noStroke();
+    arc(x, y, 80, 80, radians(i), radians(i + 20));
+    fill(bgColor);
+    ellipse(x, y, 60, 60);
+  }
+}
+
+
+
 class ui_circleButton {
   ui_circleButton() {
     
@@ -11,15 +70,15 @@ class ui_circleButton {
 }
 
 class ui_rectButton {
-  int dimension_x, dimension_y, dimension_w, dimension_h, dimension_cx, dimension_cy, strokeWeight;
+  float dimension_x, dimension_y, dimension_w, dimension_h, dimension_cx, dimension_cy, strokeWeight;
   color fillColor, highlight_fillColor, click_fillColor, strokeColor, highlight_strokeColor, click_strokeColor, textColor;
   boolean mouseHover, mouseClick;
   String buttonLabel = "";
-  PFont buttonFont = nunitoExtraLight;
-  float buttonFontSize = 10;
+  String buttonFont = "";
+  float buttonFontSize, buttonFontShift;
   String buttonName = "Unnamed";
   
-  ui_rectButton(String name, int x, int y, int w, int h, color[] colors, int weight, String label, PFont font, float fontSize) {
+  ui_rectButton(String name, float x, float y, float w, float h, color[] colors, float weight, String label, String font, float fontSize, float fontShift) {
     buttonName = name;
     dimension_x = x;
     dimension_y = y;
@@ -36,8 +95,9 @@ class ui_rectButton {
     textColor = colors[6];
     strokeWeight = weight;
     buttonLabel = label;
-    if(font != null) buttonFont = font;
-    buttonFontSize = fontSize;
+    buttonFont = font;
+    buttonFontSize = fontSize;  
+    buttonFontShift = fontShift;
   }
   
   void display() {
@@ -55,8 +115,9 @@ class ui_rectButton {
     rect(dimension_x, dimension_y, dimension_w, dimension_h);
     fill(textColor);
     textAlign(CENTER, CENTER);
-    textFont(nunitoExtraLight, buttonFontSize);
-    text(buttonLabel, dimension_cx, dimension_cy);
+    textFont(returnFontFromString(buttonFont), 100);
+    textSize(buttonFontSize);
+    text(buttonLabel, dimension_cx, dimension_cy + buttonFontShift);
   }
   
   boolean[] checkMouseState() {
@@ -65,7 +126,7 @@ class ui_rectButton {
       value[0] = true;
       if(mousePressed){
         value[1] = true;
-        b_println("Button '" + buttonName + "' pressed at " + mouseX + ", " + mouseY);
+        b_println("Button '" + buttonName + "' pressed at [" + mouseX + ", " + mouseY + "]-Absolute [" + (mouseX - dimension_x) + ", " + (mouseY - dimension_y) + "]-Local");
       }
     }
     mouseHover = value[0];
@@ -112,12 +173,55 @@ class fadeUpDown {
   }
 }
 
-class ui_mainMenu {
-  color[] exitButtonColors = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
-  ui_rectButton[] buttons = new ui_rectButton[1];
-  ui_mainMenu() {
-    buttons[0] = new ui_rectButton("exitButton" , 10, 10, 40, 40, exitButtonColors, 4, "×", nunitoExtraLight, 50);
+class ui_scrollList {
+  int x, y, w, h;
+  JSONArray elements;
+  /*
+  Each member of elements looks like this:
+  
+  {
+    "name": "insert_name_here",
     
+  }
+  
+  */
+  ui_scrollList(int xCoord, int yCoord, int wCoord, int hCoord, JSONArray imported_elements) {
+    x = xCoord;
+    y = yCoord;
+    w = wCoord;
+    h = hCoord;
+  }
+  void display() {
+    
+  }
+  void onMouseDragged() {
+    
+  }
+  
+}
+
+//class ui_popup {
+//  ui_popup() {
+    
+//  }
+//  void display() {int 
+//    stroke(100);
+//    strokeWeight(8);
+//    fill(255);
+//    rect(width * 0.25, height * 0.25, width * 0.5, height * 0.5);
+    
+//  }
+  
+//}
+
+class ui_mainMenu {
+  color[] defaultButtonColorsWhiteText = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
+  color[] defaultButtonColorsBlackText = {color(150), color(175), color(160), color(175), color(200), color(180), color(0)};
+  ui_rectButton[] buttons = new ui_rectButton[3];
+  ui_mainMenu() {
+    buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
+    buttons[1] = new ui_rectButton("loadGameButton", width * 0.35, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
+    buttons[2] = new ui_rectButton("newGameButton", width * 0.55, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
   }
   
   void display() {
@@ -131,12 +235,32 @@ class ui_mainMenu {
             shutdown(true, false); // Should be 'shutdown(true, true)' but saveGames aren't working yet.
           }
         break;
+        case "loadGameButton" :
+          if(state[1]){
+            
+          }
+        break;
+        case "newGameButton" :
+          if(state[1]){
+            
+          }
+        break;
       }
       i.display();
     }
+    fill(0);
+    textFont(nunitoLight, 64);
+    textAlign(CENTER, CENTER);
+    text("Yet Less Progress", width * 0.5, height * 0.4);
+    textSize(20);
+    textAlign(LEFT, TOP);
+    text(" Version: " + localVersion[0] + "\n Latest Version: " + onlineVersion[0], 0, 10);
+    
   }
   
-  void shiftScreen(String newScreen) {
-    
+  void updateContent() {
+    buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
+    buttons[1] = new ui_rectButton("loadGameButton", int(width * 0.35), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
+    buttons[2] = new ui_rectButton("newGameButton", int(width * 0.55), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
   }
 }

@@ -1,0 +1,11 @@
+
+--------
+Starting Init...
+  Checking Version... Done
+  Applying Settings... Done
+  Loading Fonts... Done
+  Wrapping Up... Done
+Finished Init!
+Button 'exitButton' pressed at [22, 42]-Absolute [12, 32]-Local
+Saving Options... Done
+Shutting Down...

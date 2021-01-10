@@ -1,0 +1,24 @@
+
+--------
+Starting Init...
+  Checking Version... Done
+  Applying Settings... Done
+  Loading Fonts... Done
+  Wrapping Up... Done
+Finished Init!
+Screen Resized to: [1366, 738]
+Screen Resized to: [1366, 745]
+Screen Resized to: [1366, 738]
+Screen Resized to: [1366, 696]
+Screen Resized to: [1366, 623]
+Screen Resized to: [1054, 568]
+Screen Resized to: [1055, 569]
+Screen Resized to: [1056, 571]
+Screen Resized to: [1057, 572]
+Screen Resized to: [1060, 573]
+Screen Resized to: [1063, 575]
+Screen Resized to: [1064, 576]
+Screen Resized to: [1065, 578]
+Button 'exitButton' pressed at [28, 31]-Absolute [18, 21]-Local
+Saving Options... Done
+Shutting Down...

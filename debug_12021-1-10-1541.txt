@@ -1,0 +1,12 @@
+
+--------
+Starting Init...
+  Checking Version... Done
+  Applying Settings... Done
+  Loading Fonts... Done
+  Wrapping Up... Done
+Finished Init!
+Screen Resized to: [1366, 738]
+Button 'exitButton' pressed at [1339, 43]-Absolute [23, 33]-Local
+Saving Options... Done
+Shutting Down...
