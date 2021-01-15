@@ -162,31 +162,51 @@ void keyPressed() {
 
 void mousePressed() {
   //b_println("Mouse Pressed at: " + mouseX + ", " + mouseY);
+  switch(screen) {
+    case "MainMenu" : {
+      mainMenu.display();
+    }
+  }
 }
 
 void mouseDragged() {
-  
+  switch(screen) {
+    case "MainMenu" : {
+      mainMenu.mouseAction();
+    }
+  }
 }
 
+void mouseMoved() {
+  switch(screen) {
+    case "MainMenu" : {
+      mainMenu.mouseAction();
+    }
+  }
+}
 
 
 void draw() {
   if(width != display[0] || height != display[1]) {
     switch(screen) {
       case "MainMenu" : {
-        b_println("Screen Resized to: [" + width + ", " + height + "]");
-        display[0] = width;
-        display[1] = height;
         mainMenu.updateContent();
         mainMenuBackground.resize(width, height);
       }
     }
+    b_println("Screen Resized to: [" + width + ", " + height + "]");
+    display[0] = width;
+    display[1] = height;
   }
   background(200);
   //if((!focused && !(screen == "MainMenu" || screen == "Settings") && options_display_unfocusPause)){
   //  ui_switchScreen("Pause");
   //}
-  mainMenu.display();
+  switch(screen) {
+    case "MainMenu" : {
+      mainMenu.display();
+    }
+  }
   drawCursor(mouseX, mouseY, cursorMode);
-  println(frameRate);
+  //println(frameRate);
 }

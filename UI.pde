@@ -217,11 +217,12 @@ class ui_scrollList {
 class ui_mainMenu {
   color[] defaultButtonColorsWhiteText = {color(150), color(175), color(160), color(175), color(200), color(180), color(255)};
   color[] defaultButtonColorsBlackText = {color(150), color(175), color(160), color(175), color(200), color(180), color(0)};
-  ui_rectButton[] buttons = new ui_rectButton[3];
+  ui_rectButton[] buttons = new ui_rectButton[4];
   ui_mainMenu() {
     buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
     buttons[1] = new ui_rectButton("loadGameButton", width * 0.35, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
     buttons[2] = new ui_rectButton("newGameButton", width * 0.55, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
+    buttons[3] = new ui_rectButton("reportBugButton", 10, (height - 50), options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Report Bug", "nunitoExtraLight", 25, 10);
   }
   
   void display() {
@@ -230,25 +231,6 @@ class ui_mainMenu {
     fill(255, 200);
     rect(0, 0, width, height);
     for(ui_rectButton i : buttons){
-      boolean[] state = i.checkMouseState();
-      String name = i.returnName();
-      switch(name) {
-        case "exitButton" :
-          if(state[1]){
-            shutdown(true, false); // Should be 'shutdown(true, true)' but saveGames aren't working yet.
-          }
-        break;
-        case "loadGameButton" :
-          if(state[1]){
-            
-          }
-        break;
-        case "newGameButton" :
-          if(state[1]){
-            
-          }
-        break;
-      }
       i.display();
     }
     fill(0);
@@ -257,13 +239,42 @@ class ui_mainMenu {
     text("Yet Less Progress", width * 0.5, height * 0.4);
     textSize(20);
     textAlign(LEFT, TOP);
-    text(" Version: " + localVersion[0] + "\n Latest Version: " + onlineVersion[0], 5, 5);
-    
+    text(" Version: " + localVersion[0] + "\n Latest Version: " + onlineVersion[0], 5, 5);  
+  }
+  
+  void mouseAction() {
+    for(ui_rectButton i : buttons) {
+      boolean[] state = i.checkMouseState();
+      String name = i.returnName();
+      switch(name) {
+        case "exitButton" :
+          if(state[1]) {
+            shutdown(true, false); // Should be 'shutdown(true, true)' but saveGames aren't working yet.
+          }
+        break;
+        case "loadGameButton" :
+          if(state[1]) {
+            
+          }
+        break;
+        case "newGameButton" :
+          if(state[1]) {
+            
+          }
+        break;
+        case "reportBugButton" :
+          if(state[1]) {
+            link("https://github.com/BreadBox64/YetLessProgress_Game/issues/new?assignees=BreadBox64&labels=bug&template=bug_report.md&title=%5BBUG%5D");
+          }
+        break;
+      }
+    }
   }
   
   void updateContent() {
     buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
     buttons[1] = new ui_rectButton("loadGameButton", int(width * 0.35), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
     buttons[2] = new ui_rectButton("newGameButton", int(width * 0.55), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
+    buttons[3] = new ui_rectButton("reportBugButton", 10, (height - 50), options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Report Bug", "nunitoExtraLight", 25, 10);
   }
 }
