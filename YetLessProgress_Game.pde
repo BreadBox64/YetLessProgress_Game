@@ -164,7 +164,23 @@ void mousePressed() {
   //b_println("Mouse Pressed at: " + mouseX + ", " + mouseY);
   switch(screen) {
     case "MainMenu" : {
-      mainMenu.display();
+      mainMenu.mouseAction();
+    }
+  }
+}
+
+void mouseClicked() {
+  switch(screen) {
+    case "MainMenu" : {
+      mainMenu.mouseAction();
+    }
+  }
+}
+
+void mouseReleased() {
+  switch(screen) {
+    case "MainMenu" : {
+      mainMenu.mouseAction();
     }
   }
 }

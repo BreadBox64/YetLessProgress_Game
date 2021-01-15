@@ -222,16 +222,21 @@ class ui_mainMenu {
     buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
     buttons[1] = new ui_rectButton("loadGameButton", width * 0.35, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
     buttons[2] = new ui_rectButton("newGameButton", width * 0.55, height * 0.6, options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
-    buttons[3] = new ui_rectButton("reportBugButton", 10, (height - 50), options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Report Bug", "nunitoExtraLight", 25, 10);
+    buttons[3] = new ui_rectButton("reportBugButton", 10, (height - 60), options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Report Bug", "nunitoExtraLight", 25, 10);
   }
   
   void display() {
     background(255);
+    noStroke();
+    noFill();
     image(mainMenuBackground, 0, 0);
     fill(255, 200);
     rect(0, 0, width, height);
     for(ui_rectButton i : buttons){
       i.display();
+      //if(mousePressed){
+      //  i.checkMouseState();
+      //}
     }
     fill(0);
     textFont(nunitoLight, 64);
@@ -275,6 +280,6 @@ class ui_mainMenu {
     buttons[0] = new ui_rectButton("exitButton", (width - 50), 10, 40, 40, defaultButtonColorsWhiteText, 4, "×", "nunitoExtraLight", 50, 0);
     buttons[1] = new ui_rectButton("loadGameButton", int(width * 0.35), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "Load Game", "nunitoExtraLight", 25, 10);
     buttons[2] = new ui_rectButton("newGameButton", int(width * 0.55), int(height * 0.6), 160, 50, defaultButtonColorsBlackText, 4, "New Game", "nunitoExtraLight", 25, 10);
-    buttons[3] = new ui_rectButton("reportBugButton", 10, (height - 50), options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Report Bug", "nunitoExtraLight", 25, 10);
+    buttons[3] = new ui_rectButton("reportBugButton", 10, (height - 60), options_display_width * 0.1, 50, defaultButtonColorsBlackText, 4, "Report Bug", "nunitoExtraLight", 25, 10);
   }
 }
