@@ -18,6 +18,9 @@ String[] localVersion;
 boolean upToDate = true;
 String cursorMode = "Normal";
 int[] display = {width, height};
+static byte persistData;
+byte newPersistData;
+boolean showLegalInfo = true;
 
 PImage mainMenuBackground;
 
@@ -44,6 +47,14 @@ void setup() {
   frameRate(30);
   background(255);
   drawLoadingIcon(color(255), width/2, height/2);
+  persistData = loadBytes("data.dat")[0];
+  if(binary(persistData).charAt(0) == '0') {
+    showLegalInfo = true;
+    printArray(loadStrings("LICENSE"));
+    newPersistData = byte(unbinary("1" + binary(persistData).substring(1)));
+    println(newPersistData);
+    shutdown(false, false);
+  }
   icon = loadImage("icon.png");
   options = loadTable("options.csv");
   options_string = options.getStringColumn(1);

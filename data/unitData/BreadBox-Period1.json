@@ -1,0 +1,33 @@
+[
+  {
+    "name" : "Swordsman",
+    "cost" : 10,
+    "time" : 1,
+    "stockpile" : 30,
+    "upgrades" : [
+      "Archer",
+      "Spearman",
+      "Scout"
+    ],
+    "actions" : [
+      "BreadBox:Hunt",
+      "BreadBox:Fortify",
+      "BreadBox:DoubleTime"
+    ]
+  },
+  
+  {
+    "name" : "Calvary",
+    "cost" : 10,
+    "time" : 2,
+    "stockpile" : 30,
+    "upgrades" : [
+      "Archer Calvary",
+      "Messenger"
+    ],
+    "actions" : [
+      "BreadBox:Hunt",
+      "BreadBox:Dash"
+    ]
+  }
+]

@@ -1,6 +1,8 @@
 void shutdown (boolean save_options, boolean save_game){
   noLoop();
   background(0);
+  byte[] saveData = {newPersistData};
+  saveBytes("data.dat", saveData);
   if(save_options){
    // save_optionState();
   }
