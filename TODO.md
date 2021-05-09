@@ -18,7 +18,7 @@
   * [x] Load Region Data
   * [x] Create Buttons
   * [ ] Create Lists
-  * [ ] Create Region Ui
+  * [ ] Create Region UI
   * [ ] Transitions to and from Regions Screen
 * [ ] Working Units Screen
   * [ ] Load Unit Data

@@ -1,8 +1,8 @@
 # Styleguide
 ## Git Commit Messages
 * Use the present tense ("Add feature" not "Added feature")
-* Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Start the commit message with an applicable emoji incased in square brackets:
+  * [⚙️] ```:gear:``` when contributing lots of things at once
   * [🎨] ```:art:``` when improving the format/structure of the code
   * [🐎] ```:racehorse:``` when improving performance
   * [📝] ```:memo:``` when writing docs
@@ -15,7 +15,7 @@
 * Indent anything which is contained within something else (Even switch statement cases!)
 * **Always** have the opening curly bracket (```{```) on the same line as the control statement seperated by one space: ```while(something) { }```
 * Brackets (Or parentheses) always are next to the control statement: ```if(thing) doStuff;```
-* Only use single line if statements (As seen above) if the only action preformed is a function call
+* Only use single line if statements (As seen above) if the only action preformed is a function call, use the ternary operator for variable assignments
 * The first letter of each word is uppercase except for the first word in function and variable names (```int wierdNumberCombo;```)
 * Only use comments where the purpose of the code needs explanation:
   * (```// Checks network connectivity``` not ```// Sends a request for a text file to the server```)
@@ -43,7 +43,13 @@ class wow {
   }
 }
 
-for(int i = 0; i < 5; i++) {
-  list[i] = new wow(5);
+wow[] list;
+
+void setup() {
+  size(200, 200)
+  list = new wow[5];
+  for(int i = 0; i < 5; i++) {
+    list[i] = new wow(int(random(3, 5)));
+  }
 }
 ```

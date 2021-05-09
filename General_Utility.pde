@@ -39,10 +39,10 @@ boolean intersect_circle(float pointX, float pointY, float circleX, float circle
 }
 
 boolean intersect_rect(float pointX, float pointY, float rectX, float rectY, float rectW, float rectH) {
-  return dist_fromRect(pointX, pointY, rectX, rectY, rectW, rectH) <= 0;
+  return (pointX >= rectX - rectW/2 && pointX <= rectX + rectW/2 && pointY >= rectY - rectH/2 && pointY <= rectY + rectH/2);
 }
 
-int modifyColor(char mode, int value, int change) {
+int modifyColor(char mode, color value, int change) {
   float[] argbValues = {alpha(value), red(value), green(value), blue(value)};
   color returnColor;
   switch(mode) {
@@ -67,6 +67,12 @@ int modifyColor(char mode, int value, int change) {
   return returnColor;
 }
 
+int getWeekOfYear(LocalDate time) {
+  LocalDate begin = LocalDate.of(time.getYear(), 1, 1);
+  float offset = begin.getDayOfWeek().getValue() - 1;
+  return ceil((time.getDayOfYear() + offset)/7);
+}
+
 float relX(float input) {
   return map(input, 0, 1366, 0, width);
 }
@@ -75,7 +81,7 @@ float relY(float input) {
   return map(input, 0, 745, 0, height);
 }
 
-float[] relC(float[] input) {
-  float[] output = {map(input[0], 0, 745, 0, height), map(input[1], 0, 1366, 0, width)};
+PVector relC(PVector input) {
+  PVector output = new PVector(map(input.x, 0, 745, 0, height), map(input.y, 0, 1366, 0, width));
   return output;
 }

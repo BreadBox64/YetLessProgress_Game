@@ -1,14 +1,30 @@
 boolean checkConnectivityStatus(boolean enablePrint){
-  if(enablePrint) b_print("Checking Connectivity...");
+  if(enablePrint) print("Checking Connectivity... ");
   try {
-    String[] testString = loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/data/memes.txt");
-    boolean testBoolean = testString[0].equals(testString[1]);
-  } catch(NullPointerException e){
-    if(enablePrint) b_println("Test Failed");
-    return false;
+    URL url = new URL("http://www.google.com");
+    URLConnection connection = url.openConnection();
+    connection.connect();
+    if(enablePrint) b_println("Test Succeeded");
+    return true;
+  } catch (MalformedURLException e) {
+    
+  } catch (IOException e) {
+    
   }
-  if(enablePrint) b_println("Test Succeeded");
-  return true;
+  if(enablePrint) b_println("Test Failed");
+  return false;
+}
+
+int checkVersion() {
+  online = checkConnectivityStatus(false);
+  if(online) {
+    if(loadStrings("version.txt") == null) return 1;
+    if(loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/version.txt") == null) return 2; 
+    localVersion = loadStrings("version.txt")[0];
+    onlineVersion = loadStrings("https://raw.githubusercontent.com/BreadBox64/YetLessProgress_Game/main/version.txt")[0];
+    upToDate = onlineVersion.equals(localVersion);
+    if(upToDate) return 3; else return 4;
+  } else return 0;
 }
 
 String[] get_savedGameStates() {
