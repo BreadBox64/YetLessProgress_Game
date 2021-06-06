@@ -176,7 +176,7 @@ void keyPressed() {
     key = ' ';
     keyCode = 0;
   }
-  if(screen == "MainMenu" || screen == "Pause" || screen == "Settings") {} else {
+  if(screen == "MainMenu" || screen == "Pause" || screen == "Settings") { } else {
     if(key == 'm' || key == 'M'){
       b_print("Switching to Map Screen...");
       ui_switchScreen("Map");
